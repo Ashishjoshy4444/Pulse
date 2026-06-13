@@ -91,7 +91,7 @@ def build_html_email(bbc, reuters, aljazeera):
 def send_email(html_content):
     """Send the digest as an HTML email."""
     sender = os.environ.get("EMAIL_SENDER")
-    password = os.environ.get("EMAIL_PASSWORD")  # Gmail App Password
+    password = os.environ.get("EMAIL_PASSWORD")
     receiver = os.environ.get("EMAIL_RECEIVER")
 
     msg = MIMEMultipart("alternative")
