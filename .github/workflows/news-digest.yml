@@ -1,12 +1,12 @@
-name: Pulse - Daily Summary Bot
+name: News Digest Bot
 
 on:
   schedule:
-    - cron: '30 2 * * *'
+    - cron: '30 1 * * *'
   workflow_dispatch:
 
 jobs:
-  run-pulse:
+  send-digest:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,11 +20,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Pulse bot
-        run: python bot.py
-
-      - name: Upload summary as artifact
-        uses: actions/upload-artifact@v5
-        with:
-          name: daily-summary
-          path: daily_summary.txt
+      - name: Run news digest bot
+        env:
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+        run: python news_digest.py
